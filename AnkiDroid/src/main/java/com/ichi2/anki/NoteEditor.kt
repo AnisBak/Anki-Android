@@ -2010,8 +2010,11 @@ class NoteEditor : AnkiActivity(), DeckSelectionListener, SubtitleListener, Tags
     }
 
     private val currentlySelectedNotetype: NotetypeJson?
-        get() = getColUnsafe.notetypes.get(mAllModelIds!![mNoteTypeSpinner!!.selectedItemPosition])
-
+        get() {
+            val selectedPosition = mNoteTypeSpinner?.selectedItemPosition ?: return null
+            val allModelIds = mAllModelIds ?: return null
+            return getColUnsafe.notetypes.get(allModelIds[selectedPosition])
+        }
     /**
      * Update all the field EditText views based on the currently selected note type and the mModelChangeFieldMap
      */
